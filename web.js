@@ -6,17 +6,10 @@ var fs = require('fs');
 
 var str = '';
 
-var str_gen = function () {
-fs.readFile('/etc/passwd', function (err, data) {
-  if (err) throw err;
-  return(data.toString('utf-8'));
-});
-};
-
-str = str_gen();
+var str = new Buffer(fs.readFileSync('index.html'), 'utf-8'); 
 
 app.get('/', function(request, response) {
-  response.send(str);
+  response.send(str.toString());
 });
 
 var port = process.env.PORT || 5000;
